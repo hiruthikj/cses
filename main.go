@@ -1,5 +1,5 @@
 package main
 
 func main() {
-  WeirdAlgorithm()
+ number_spiral()
 }

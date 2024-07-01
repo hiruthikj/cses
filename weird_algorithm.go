@@ -23,7 +23,3 @@ func printConjecture(n int) {
   }
   printConjecture(n)
 }
-
-func main() {
-  WeirdAlgorithm()
-}
