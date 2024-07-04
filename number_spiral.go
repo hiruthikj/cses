@@ -12,19 +12,18 @@ func number_spiral() {
 	for i:=0; i<n; i++ {
 		fmt.Scanf("%d %d\n", &y, &x)
 		var start int
+
 		if y > x {
-			start = y%2 + (y - (y%2)) * (y - (y%2))   
 			if y%2 == 0 {
-				start -= x-1
+				start = (y*y) - (x-1)
 			} else {
-				start += x-1
+				start = (y-1)*(y-1) + x
 			}
 		} else {
-			start = (x-1+(x%2))*(x-1+(x%2)) + 1 - (x%2)
 			if x%2 == 0 {
-				start += y-1
-			} else {
-				start -= y-1
+				start = (x-1)*(x-1) + y
+				} else {
+				start = x*x - y + 1
 			}
 		}
 		fmt.Println(start)
