@@ -1,5 +1,5 @@
 package main
 
 func main() {
- number_spiral()
+ creating_strings()
 }
