@@ -2,51 +2,58 @@ package main
 
 import (
 	"fmt"
-	"maps"
 	"slices"
 )
+
+func nextPermutation(word []rune) bool {
+    pivot := len(word) - 2
+
+    for pivot >= 0 && word[pivot] >= word[pivot+1] {
+        pivot--
+    }
+
+    if pivot < 0 {
+        return false
+    }
+
+    nextNum := len(word) - 1
+
+    for word[nextNum] <= word[pivot] {
+        nextNum--
+    }
+
+    word[pivot], word[nextNum] = word[nextNum], word[pivot]
+
+    i := pivot + 1
+    j := len(word) - 1
+
+    for i < j {
+        word[i], word[j] = word[j], word[i]
+        j--
+        i++
+    }
+    return true
+}
 
 func creating_strings() {
 	var inpStr string
 	fmt.Scanf("%s\n", &inpStr)
 
-	charCount := make(map[rune]int)
-	
-	for _, ch := range inpStr {
-		charCount[ch] += 1
-	}
-	
-	// fmt.Println(charCount)
-	
-	result := make([]string, 1)
-	r := permuteString(charCount, "", len(inpStr), result)
-	
-	slices.Sort(r)
-	fmt.Println(len(r))
+	runeArr := []rune(inpStr)
+	slices.Sort(runeArr)
 
-	for _, str := range r {
+
+	res := []string{string(runeArr)}
+	totalPermutations := 1
+
+
+	for nextPermutation(runeArr) {
+		res = append(res, string(runeArr))
+		totalPermutations++
+	}
+
+	fmt.Println(totalPermutations)
+	for _, str := range res {
 		fmt.Println(str)
 	}
-}
-
-func permuteString(charCountRem map[rune]int, currStr string, remCount int, result []string) []string {
-	if remCount == 0 {
-		// result = append(result, currStr)
-		// fmt.Println(currStr)
-		return []string{currStr}
-	}
-
-	r := []string{}
-	for ch, _ := range charCountRem {
-		charCountCp := make(map[rune]int)
-		maps.Copy(charCountCp, charCountRem)
-		charCountCp[ch] -= 1
-		if charCountCp[ch] <= 0 {
-			delete(charCountCp, ch)
-		}
-		// fmt.Println(charCountCp)
-		r = append(r, permuteString(charCountCp, currStr+string(ch), remCount-1, result)...)
-	}
-
-	return r
 }
