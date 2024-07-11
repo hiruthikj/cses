@@ -1,5 +1,5 @@
 package main
 
 func main() {
- creating_strings()
+ trailing_zeroes()
 }
